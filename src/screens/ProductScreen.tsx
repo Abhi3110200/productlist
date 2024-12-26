@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import ProductCard from '../components/ProductCard';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useNavigation } from '@react-navigation/native';
 
 interface Product {
   id: number;
@@ -22,6 +23,13 @@ const ProductScreen: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [viewType, setViewType] = useState<'list' | 'grid'>('list');
+  const navigation = useNavigation();
+
+  useEffect(()=>{
+    navigation.setOptions({
+        title: 'Products',
+    })
+  },[navigation]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -29,6 +37,7 @@ const ProductScreen: React.FC = () => {
         const response = await fetch('https://fakestoreapi.com/products');
         const data = await response.json();
         setProducts(data);
+        console.log(data);
       } catch (error) {
         console.error('Error fetching products:', error);
       } finally {
@@ -70,6 +79,7 @@ const ProductScreen: React.FC = () => {
 
       <FlatList
         data={products}
+        showsVerticalScrollIndicator={false}
         keyExtractor={item => item.id.toString()}
         renderItem={({item}) => (
           <ProductCard product={item} viewType={viewType} />

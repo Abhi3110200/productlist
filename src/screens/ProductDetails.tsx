@@ -57,8 +57,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ route }) => {
     <ScrollView contentContainerStyle={styles.container}>
       <Image source={{ uri: product.image }} style={styles.productImage} />
       <Text style={styles.productName}>{product.title}</Text>
-      <Text style={styles.productDescription}>{product.description}</Text>
       <Text style={styles.productPrice}>${product.price.toFixed(2)}</Text>
+      <Text style={styles.productDescription}>{product.description}</Text>
     </ScrollView>
   );
 };
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   productDescription: {
     fontSize: 16,
     color: '#666',
-    marginVertical: 5,
+    marginVertical: 10,
   },
   productPrice: {
     fontSize: 20,
